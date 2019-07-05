@@ -16,13 +16,18 @@ class Show extends Component{
     
     componentDidMount() {
 
+        //We are pointingto a specific document in the collection
+        //Basically property id holds the document id, so we can uniquely point out to a particular document
         const ref = firebase.firestore().collection('boards').doc(this.props.match.params.id);
 
+        //We use get() method to retrive the particular document
         ref.get().then((doc) => {
 
+            //check whether doc exists
             if (doc.exists) {
 
                 this.setState({
+                //doc.data() returns a JSON object
                 board: doc.data(),
                 key: doc.id,
                 isLoading: false
@@ -35,6 +40,7 @@ class Show extends Component{
     }
     
     delete(id){
+        //To a particular document we call the method delete()
         firebase.firestore().collection('boards').doc(id).delete().then(() => {
 
             console.log("Document successfully deleted!");
