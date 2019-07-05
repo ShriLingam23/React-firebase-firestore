@@ -19,6 +19,8 @@ class Edit extends Component {
     }
 
     componentDidMount() {
+        
+        //First we retrive the particular doc using get()
         const ref = firebase.firestore().collection('boards').doc(this.props.match.params.id);
         ref.get().then((doc) => {
             if (doc.exists) {
@@ -44,8 +46,11 @@ class Edit extends Component {
     onSubmit = (e) => {
         e.preventDefault();
 
+        //Deconstructing the json object
         const { title, description, author } = this.state;
 
+        //We use set() to update the particular doc which is refered through doc.id
+        //we pass the JSON object similar to that of add()
         const updateRef = firebase.firestore().collection('boards').doc(this.state.key);
         updateRef.set({
             title,
