@@ -24,8 +24,10 @@ class Create extends Component {
     onSubmit = (e) => {
         e.preventDefault();
 
+        //Deconsructing json object this.state
         const { title, description, author } = this.state;
 
+        //Basically we take the reference to particular collection and add() new json object
         this.ref.add({
             title,
             description,
