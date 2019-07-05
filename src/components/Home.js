@@ -17,10 +17,17 @@ class Home extends Component{
     }
     
     onCollectionUpdate = (querySnapshot) => {
+        //Used to store array of boards from firestore database
         const boards = [];
         
+        //querySnapshot it's the data returned from firebase
         querySnapshot.forEach((doc) => {
+            
+            //doc is single entry in the collection called document
+            //Here we are deconstructing the json object
             const { title, description, author } = doc.data();
+            
+            //Pushing an object into the array
             boards.push({
                 key: doc.id,
                 doc, // DocumentSnapshot
@@ -28,14 +35,19 @@ class Home extends Component{
                 description,
                 author,
             });
+            
+            
         });
 
+        //Finally setting the state
         this.setState({
             boards
         });
     }
     
     componentDidMount() {
+        //Here we are listening for the realtime updates ie:onSnapshot()
+        //We pass the method that perform some actions when there is any updates
         this.unsubscribe = this.ref.onSnapshot(this.onCollectionUpdate);
     }
 
